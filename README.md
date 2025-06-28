@@ -67,4 +67,4 @@ You can open it in:
 ## Salman Khan
 ## Full Stack Developer | Cloud & AI Enthusiast
 ## Visit 👉 salmandeveloper.xyz
-## Follow on GitHub 👉 github.com/your-username
+## Follow on GitHub 👉 github.com/salmankhani-sk
