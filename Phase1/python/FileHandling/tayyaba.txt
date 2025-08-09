@@ -1,0 +1,2 @@
+This is a new file created for testing
+It contains some sample text for demonstration
