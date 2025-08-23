@@ -1,5 +1,25 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, status
+from pydantic import BaseModel
 app = FastAPI()
+
+class User(BaseModel):
+    id: int
+    name: str
+    email: str
+
+@app.post("/users/", status_code=201)
+def create_user(user: User):
+    return {"message": "User created successfully", "user": user}
+
+
+class Feedback(BaseModel):
+    user_id: int
+    comments: str
+    rating: int
+@app.post("/feedback/", status_code=status.HTTP_201_CREATED)
+def submit_feedback(feedback: Feedback):
+    return {"message": "Feedback submitted successfully", "feedback": feedback}
+
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
