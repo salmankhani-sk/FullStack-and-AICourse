@@ -2,6 +2,27 @@ from fastapi import FastAPI, status
 from pydantic import BaseModel
 app = FastAPI()
 
+fk_users = {
+    1: {"name": "Salman", "email": "salmank.developer@gmail.com"},
+    2: {"name": "Bob", "email": "Bob@gmail.com"},
+    3: {"name": "Charlie", "email": "ch@gmail.com"}
+}
+
+@app.delete("/users/{user_id}", status_code= 200)
+def delete_user(user_id: int):
+    if user_id in fk_users:
+        delelted_user = fk_users.pop(user_id)
+        return {"message": "User deleted successfully", "user": delelted_user}
+    return {"error": "User not found"}
+
+
+@app.delete("/users/{user_id}", status_code=204)
+def delete_user_no_content(user_id: int):
+    if user_id in fk_users:
+        fk_users.pop(user_id)
+        return
+    return {"error": "User not found"}
+
 class User(BaseModel):
     id: int
     name: str
@@ -36,5 +57,20 @@ def search(query: str):
     return {"query": query, "results": f"Results for {query}"}
 
 
+@app.put("/users/{user_id}")
+def update_user(user_id: int, user: User):
+    if user_id in fk_users:
+        fk_users[user_id] = user.dict()
+        return {"message": "User updated successfully", "user": fk_users[user_id]}
+    return {"error": "User not found"}
+@app.patch("/users/{user_id}")
+def partial_update_user(user_id: int, user: User):
+    if user_id in fk_users:
+        stored_user_data = fk_users[user_id]
+        update_data = user.dict(exclude_unset=True)
+        stored_user_data.update(update_data)
+        fk_users[user_id] = stored_user_data
+        return {"message": "User partially updated successfully", "user": fk_users[user_id]}
+    return {"error": "User not found"}
 
 # Endpoint to get items
