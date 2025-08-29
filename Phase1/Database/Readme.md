@@ -1,6 +1,7 @@
+
 ##  Step 1: Install PostgreSQL
 
-### 🔹 Download PostgreSQL
+###  Download PostgreSQL
 - Go to [https://www.postgresql.org/download/](https://www.postgresql.org/download/)
 - Select your operating system:
   - **Windows** → Use the EnterpriseDB installer (includes pgAdmin).
